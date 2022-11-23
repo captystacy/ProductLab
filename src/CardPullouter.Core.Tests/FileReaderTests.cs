@@ -1,4 +1,6 @@
-﻿namespace CardPullouter.Core.Tests
+﻿using CardPullouter.Core.Tests.Helpers;
+
+namespace CardPullouter.Core.Tests
 {
     public class FileReaderTests
     {
@@ -8,20 +10,64 @@
             // arrange
 
             var sut = new FileReader();
-            var binDirectory = Directory.GetCurrentDirectory();
-            var currentDirectory = Directory.GetParent(binDirectory)!.Parent!.Parent!.FullName;
             var testFileName = "Keys.txt";
-            var path = Path.Combine(currentDirectory, testFileName);
+            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
+            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
 
             // act
 
-            var keys = await sut.GetKeys(path);
+            var getKeysOperation = await sut.GetKeys(filePath);
 
             // assert
 
-            Assert.Contains("Игрушки", keys);
-            Assert.Contains("Настолки", keys);
-            Assert.Contains("Телефоны", keys);
+            Assert.True(getKeysOperation.Ok);
+
+            if (getKeysOperation.Result is null)
+            {
+                Assert.Fail("GetKeysOperation's result was null");
+            }
+
+            Assert.Contains("Игрушки", getKeysOperation.Result);
+            Assert.Contains("Настолки", getKeysOperation.Result);
+            Assert.Contains("Телефоны", getKeysOperation.Result);
+        }
+
+        [Fact]
+        public async Task ItShould_get_bad_result_when_file_is_empty()
+        {
+            // arrange
+
+            var sut = new FileReader();
+            var testFileName = "KeysEmpty.txt";
+            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
+            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
+
+            // act
+
+            var getKeysOperation = await sut.GetKeys(filePath);
+
+            // assert
+
+            Assert.False(getKeysOperation.Ok);
+        }
+
+        [Fact]
+        public async Task ItShould_get_bad_result_when_file_is_not_exist()
+        {
+            // arrange
+
+            var sut = new FileReader();
+            var testFileName = "KeysNotExist.txt";
+            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
+            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
+
+            // act
+
+            var getKeysOperation = await sut.GetKeys(filePath);
+
+            // assert
+
+            Assert.False(getKeysOperation.Ok);
         }
     }
 }

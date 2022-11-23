@@ -1,6 +1,8 @@
-﻿namespace CardPullouter.Core;
+﻿using Calabonga.OperationResults;
+
+namespace CardPullouter.Core;
 
 public interface IFileReader
 {
-    Task<IEnumerable<string>> GetKeys(string path);
+    Task<OperationResult<IEnumerable<string>>> GetKeys(string path);
 }

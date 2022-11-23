@@ -1,12 +1,32 @@
-﻿namespace CardPullouter.Core
+﻿using Calabonga.OperationResults;
+
+namespace CardPullouter.Core
 {
     public class FileReader : IFileReader
     {
-        public async Task<IEnumerable<string>> GetKeys(string path)
+        public async Task<OperationResult<IEnumerable<string>>> GetKeys(string path)
         {
-            var fileText = await File.ReadAllTextAsync(path);
+            var operation = OperationResult.CreateResult<IEnumerable<string>>();
 
-            return fileText.Split(Environment.NewLine);
+            string fileText;
+            try
+            {
+                fileText = await File.ReadAllTextAsync(path);
+            }
+            catch (Exception exception)
+            {
+                operation.AddError("Something went wrong when trying to read file", exception);
+                return operation;
+            }
+
+            if (string.IsNullOrEmpty(fileText))
+            {
+                operation.AddError("File was empty");
+            }
+
+            operation.Result = fileText.Split(Environment.NewLine);
+
+            return operation;
         }
     }
 }
