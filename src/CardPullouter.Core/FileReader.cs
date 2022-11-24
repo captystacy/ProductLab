@@ -1,4 +1,5 @@
 ﻿using Calabonga.OperationResults;
+using CardPullouter.Core.Interfaces;
 
 namespace CardPullouter.Core
 {

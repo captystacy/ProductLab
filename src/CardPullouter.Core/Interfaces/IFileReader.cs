@@ -1,6 +1,6 @@
 ﻿using Calabonga.OperationResults;
 
-namespace CardPullouter.Core;
+namespace CardPullouter.Core.Interfaces;
 
 public interface IFileReader
 {

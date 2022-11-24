@@ -10,9 +10,8 @@ namespace CardPullouter.Core.Tests
             // arrange
 
             var sut = new FileReader();
-            var testFileName = "Keys.txt";
-            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
-            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
+            var fileName = "Keys.txt";
+            var filePath = DirectoryHelper.GetPathToFileFromSourceFolder(fileName);
 
             // act
 
@@ -21,12 +20,7 @@ namespace CardPullouter.Core.Tests
             // assert
 
             Assert.True(getKeysOperation.Ok);
-
-            if (getKeysOperation.Result is null)
-            {
-                Assert.Fail("GetKeysOperation's result was null");
-            }
-
+            Assert.NotNull(getKeysOperation.Result);
             Assert.Contains("Игрушки", getKeysOperation.Result);
             Assert.Contains("Настолки", getKeysOperation.Result);
             Assert.Contains("Телефоны", getKeysOperation.Result);
@@ -38,9 +32,8 @@ namespace CardPullouter.Core.Tests
             // arrange
 
             var sut = new FileReader();
-            var testFileName = "KeysEmpty.txt";
-            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
-            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
+            var fileName = "KeysEmpty.txt";
+            var filePath = DirectoryHelper.GetPathToFileFromSourceFolder(fileName);
 
             // act
 
@@ -57,9 +50,8 @@ namespace CardPullouter.Core.Tests
             // arrange
 
             var sut = new FileReader();
-            var testFileName = "KeysNotExist.txt";
-            var currentDirectory = DirectoryHelper.GetCurrentDirectory();
-            var filePath = Path.Combine(currentDirectory, Constants.SourceFolderName, testFileName);
+            var fileName = "KeysNotExist.txt";
+            var filePath = DirectoryHelper.GetPathToFileFromSourceFolder(fileName);
 
             // act
 
