@@ -6,14 +6,15 @@ namespace CardPullouter.Core
 {
     public class HtmlLoader : IHtmlLoader
     {
-        public async Task<OperationResult<string>> LoadAndWaitForSelector(string uri, string selector)
-        {
-            var operation = OperationResult.CreateResult<string>();
+        private IBrowser? _browser;
 
-            IBrowser browser;
+        public async Task<OperationResult<Empty>> LoadBrowser()
+        {
+            var operation = OperationResult.CreateResult<Empty>();
+
             try
             {
-                browser = await Puppeteer.LaunchAsync(new LaunchOptions
+                _browser = await Puppeteer.LaunchAsync(new LaunchOptions
                 {
                     Headless = true,
                     ExecutablePath = @"c:\Program Files\Google\Chrome\Application\chrome.exe"
@@ -25,13 +26,31 @@ namespace CardPullouter.Core
                 return operation;
             }
 
-            await using var page = await browser.NewPageAsync();
+            return operation;
+        }
+
+        public async Task<OperationResult<string>> LoadAndWaitForSelector(string uri, string selector)
+        {
+            var operation = OperationResult.CreateResult<string>();
+
+            if (_browser is null || _browser.IsClosed)
+            {
+                operation.AddError("Browser was not initialized");
+                return operation;
+            }
+
+            await using var page = await _browser.NewPageAsync();
             await page.GoToAsync(uri);
             await page.WaitForSelectorAsync(selector);
 
             operation.Result = await page.GetContentAsync();
 
             return operation;
+        }
+
+        public async Task CloseBrowser()
+        {
+            if (_browser != null) await _browser.CloseAsync();
         }
     }
 }
