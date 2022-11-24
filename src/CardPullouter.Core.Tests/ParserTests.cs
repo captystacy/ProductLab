@@ -50,5 +50,43 @@ namespace CardPullouter.Core.Tests
                 Assert.NotEmpty(href);
             }
         }
+
+        [Fact]
+        public async Task ItShould_get_inner_text()
+        {
+            // arrange
+
+            var fileName = "page.html";
+            var filePath = DirectoryHelper.GetPathToFileFromSourceFolder(fileName);
+            var html = await File.ReadAllTextAsync(filePath);
+
+            var sut = new Parser();
+
+            var typicalParentElement = new HtmlElement("div")
+            {
+                Attributes = new Dictionary<string, string>
+                {
+                    { "class", "searching-results__inner"}
+                }
+            };
+
+            var targetChildElement = new HtmlElement("h1")
+            {
+                Attributes = new Dictionary<string, string>
+                {
+                    { "class", "searching-results__title"}
+                }
+            };
+
+            // act
+
+            var getInnerTextOperation = await sut.GetInnerText(html, typicalParentElement, targetChildElement);
+
+            // assert
+
+            Assert.True(getInnerTextOperation.Ok);
+            Assert.NotNull(getInnerTextOperation.Result);
+            Assert.Equal("По запросу «мебель» найдено", getInnerTextOperation.Result);
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace CardPullouter.Core
 
             var elements = htmlDocument.DocumentNode.QuerySelectorAll(typicalParentElement.ToString());
 
-            if (elements.Count <= 0)
+            if (elements.Count == 0)
             {
                 operation.AddError($"There is no {typicalParentElement}");
                 return Task.FromResult(operation);
@@ -63,6 +63,47 @@ namespace CardPullouter.Core
             operation.Result = elements;
 
             return Task.FromResult(operation);
+        }
+
+        public async Task<OperationResult<string>> GetInnerText(string html, HtmlElement parentElement, HtmlElement targetChildElement)
+        {
+            var operation = OperationResult.CreateResult<string>();
+
+            var getElementsOperation = await GetElements(html, parentElement);
+
+            if (!getElementsOperation.Ok || getElementsOperation.Result is null)
+            {
+                operation.AddError(getElementsOperation.GetMetadataMessages());
+                return operation;
+            }
+
+            var elements = getElementsOperation.Result;
+
+            if (elements.Count > 1)
+            {
+                operation.AddError("Were found more than one parent element, please specify your parent");
+                return operation;
+            }
+
+            var parent = elements.First();
+
+            var target = parent.QuerySelector(targetChildElement.ToString());
+
+            if (target is null)
+            {
+                operation.AddError("Specified target child was not found");
+                return operation;
+            }
+
+            if (string.IsNullOrEmpty(target.InnerText))
+            {
+                operation.AddError($"Inner text of {targetChildElement} was null or empty");
+                return operation;
+            }
+
+            operation.Result = target.InnerText.Trim();
+
+            return operation;
         }
     }
 }
