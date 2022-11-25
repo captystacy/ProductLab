@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace CardPullouter.Core
+namespace CardPullouter.Core.Models
 {
     public class HtmlElement
     {
@@ -11,7 +11,7 @@ namespace CardPullouter.Core
         {
             var sb = new StringBuilder();
 
-            if (Attributes is not null &&  Attributes.Count > 0)
+            if (Attributes is not null && Attributes.Count > 0)
             {
                 AppendAttributeSelector(sb, Attributes);
             }

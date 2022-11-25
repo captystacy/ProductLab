@@ -1,11 +1,11 @@
 ﻿using Calabonga.OperationResults;
-using CardPullouter.Core.Interfaces;
+using CardPullouter.Core.Services.Interfaces;
 
-namespace CardPullouter.Core
+namespace CardPullouter.Core.Services
 {
-    public class FileReader : IFileReader
+    public class FileService : IFileService
     {
-        public async Task<OperationResult<IEnumerable<string>>> GetKeys(string path)
+        public async Task<OperationResult<IEnumerable<string>>> GetKeysAsync(string path)
         {
             var operation = OperationResult.CreateResult<IEnumerable<string>>();
 

@@ -1,14 +1,14 @@
 ﻿using Calabonga.OperationResults;
-using CardPullouter.Core.Interfaces;
+using CardPullouter.Core.Services.Interfaces;
 using PuppeteerSharp;
 
-namespace CardPullouter.Core
+namespace CardPullouter.Core.Services
 {
-    public class HtmlLoader : IHtmlLoader
+    public class HtmlService : IHtmlService
     {
         private IBrowser? _browser;
 
-        public async Task<OperationResult<Empty>> LoadBrowser()
+        public async Task<OperationResult<Empty>> LoadBrowserAsync()
         {
             var operation = OperationResult.CreateResult<Empty>();
 
@@ -29,7 +29,7 @@ namespace CardPullouter.Core
             return operation;
         }
 
-        public async Task<OperationResult<string>> LoadAndWaitForSelector(string uri, string selector)
+        public async Task<OperationResult<string>> LoadAndWaitForSelectorAsync(string uri, string selector)
         {
             var operation = OperationResult.CreateResult<string>();
 
@@ -57,7 +57,7 @@ namespace CardPullouter.Core
             return operation;
         }
 
-        public async Task CloseBrowser()
+        public async Task CloseBrowserAsync()
         {
             if (_browser != null) await _browser.CloseAsync();
         }

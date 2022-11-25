@@ -1,15 +1,16 @@
 ﻿using Calabonga.OperationResults;
-using CardPullouter.Core.Interfaces;
+using CardPullouter.Core.Models;
+using CardPullouter.Core.Services.Interfaces;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
 
-namespace CardPullouter.Core
+namespace CardPullouter.Core.Services
 {
-    public class Parser : IParser
+    public class ParserService : IParserService
     {
         private const string HrefAttributeName = "href";
 
-        public async Task<OperationResult<IEnumerable<string>>> GetHrefs(string html, HtmlElement typicalParentElement, HtmlElement targetChildElement)
+        public async Task<OperationResult<IEnumerable<string>>> GetHrefsAsync(string html, HtmlElement typicalParentElement, HtmlElement targetChildElement)
         {
             var operation = OperationResult.CreateResult<IEnumerable<string>>();
 
@@ -65,7 +66,7 @@ namespace CardPullouter.Core
             return Task.FromResult(operation);
         }
 
-        public async Task<OperationResult<string>> GetInnerText(string html, HtmlElement parentElement, HtmlElement targetChildElement)
+        public async Task<OperationResult<string>> GetInnerTextAsync(string html, HtmlElement parentElement, HtmlElement targetChildElement)
         {
             var operation = OperationResult.CreateResult<string>();
 

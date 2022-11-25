@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardPullouter.Core", "CardPullouter.Core\CardPullouter.Core.csproj", "{C25090FD-CF7A-4C1B-9F26-7F8F3EAD2E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardPullouter.Core.Tests", "CardPullouter.Core.Tests\CardPullouter.Core.Tests.csproj", "{FD580808-2F0C-4D6E-A210-C12459E37A75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardPullouter.Core.Tests", "CardPullouter.Core.Tests\CardPullouter.Core.Tests.csproj", "{FD580808-2F0C-4D6E-A210-C12459E37A75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardPullouter.ConsoleClient", "CardPullouter.ConsoleClient\CardPullouter.ConsoleClient.csproj", "{5FCACC89-A92A-4ABC-93E5-8C4D65C9E25B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{FD580808-2F0C-4D6E-A210-C12459E37A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD580808-2F0C-4D6E-A210-C12459E37A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD580808-2F0C-4D6E-A210-C12459E37A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCACC89-A92A-4ABC-93E5-8C4D65C9E25B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCACC89-A92A-4ABC-93E5-8C4D65C9E25B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCACC89-A92A-4ABC-93E5-8C4D65C9E25B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCACC89-A92A-4ABC-93E5-8C4D65C9E25B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

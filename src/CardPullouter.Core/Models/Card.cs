@@ -1,4 +1,4 @@
-﻿namespace CardPullouter.Core
+﻿namespace CardPullouter.Core.Models
 {
     public class Card
     {

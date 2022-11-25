@@ -1,24 +1,25 @@
-﻿using OfficeOpenXml;
+﻿using CardPullouter.Core.Services.Interfaces;
+using OfficeOpenXml;
 
-namespace CardPullouter.Core
+namespace CardPullouter.Core.Services
 {
-    public class ExcelGenerator : IExcelGenerator
+    public class ExcelService : IExcelService
     {
-        private ExcelPackage _excel;
+        private ExcelPackage _excel = null!;
 
-        public ExcelGenerator()
+        public ExcelService()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
-        public Task CreateExcel()
+        public Task CreateExcelAsync()
         {
             _excel = new ExcelPackage();
 
             return Task.CompletedTask;
         }
 
-        public Task AddWorksheet<T>(string sheetName, IList<T> objects)
+        public Task AddWorksheetAsync<T>(string sheetName, IList<T> objects)
         {
             var workSheet = _excel.Workbook.Worksheets.Add(sheetName);
 
@@ -39,13 +40,18 @@ namespace CardPullouter.Core
             return Task.CompletedTask;
         }
 
-        public Task SaveExcel(string filePath)
+        public Task SaveExcelAsync(string filePath)
         {
             _excel.SaveAs(filePath);
 
+            return Task.CompletedTask;
+        }
+
+        public ValueTask DisposeAsync()
+        {
             _excel.Dispose();
 
-            return Task.CompletedTask;
+            return ValueTask.CompletedTask;
         }
     }
 }
