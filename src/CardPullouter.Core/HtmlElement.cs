@@ -4,20 +4,12 @@ namespace CardPullouter.Core
 {
     public class HtmlElement
     {
-        public string Name { get; }
         public Dictionary<string, string>? Attributes { get; set; }
         public Dictionary<string, string>? AvoidableAttributes { get; set; }
-
-        public HtmlElement(string name)
-        {
-            Name = name;
-        }
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-
-            sb.Append(Name);
 
             if (Attributes is not null &&  Attributes.Count > 0)
             {

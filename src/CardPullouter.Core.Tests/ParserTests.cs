@@ -15,7 +15,7 @@ namespace CardPullouter.Core.Tests
 
             var sut = new Parser();
 
-            var typicalParentElement = new HtmlElement("div")
+            var typicalParentElement = new HtmlElement()
             {
                 Attributes = new Dictionary<string, string>
                 {
@@ -27,7 +27,7 @@ namespace CardPullouter.Core.Tests
                 }
             };
 
-            var targetChildElement = new HtmlElement("a")
+            var targetChildElement = new HtmlElement()
             {
                 Attributes = new Dictionary<string, string>
                 {
@@ -62,7 +62,7 @@ namespace CardPullouter.Core.Tests
 
             var sut = new Parser();
 
-            var typicalParentElement = new HtmlElement("div")
+            var typicalParentElement = new HtmlElement()
             {
                 Attributes = new Dictionary<string, string>
                 {
@@ -70,7 +70,7 @@ namespace CardPullouter.Core.Tests
                 }
             };
 
-            var targetChildElement = new HtmlElement("h1")
+            var targetChildElement = new HtmlElement()
             {
                 Attributes = new Dictionary<string, string>
                 {

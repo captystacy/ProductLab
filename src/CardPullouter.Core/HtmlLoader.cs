@@ -41,7 +41,16 @@ namespace CardPullouter.Core
 
             await using var page = await _browser.NewPageAsync();
             await page.GoToAsync(uri);
-            await page.WaitForSelectorAsync(selector);
+
+            try
+            {
+                await page.WaitForSelectorAsync(selector);
+            }
+            catch (Exception exception)
+            {
+                operation.AddError("Something went wrong when waiting for selector", exception);
+                return operation;
+            }
 
             operation.Result = await page.GetContentAsync();
 

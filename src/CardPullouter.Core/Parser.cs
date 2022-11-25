@@ -81,23 +81,32 @@ namespace CardPullouter.Core
 
             if (elements.Count > 1)
             {
-                operation.AddError("Were found more than one parent element, please specify your parent");
+                operation.AddError($"Were found more than one parent element, please specify your parent. Parent: {parentElement}, child {targetChildElement}");
                 return operation;
             }
 
             var parent = elements.First();
 
-            var target = parent.QuerySelector(targetChildElement.ToString());
+            HtmlNode target;
+            try
+            {
+                target = parent.QuerySelector(targetChildElement.ToString());
+            }
+            catch (Exception exception)
+            {
+                operation.AddError($"Specified target child was not found. Parent: {parentElement}, child {targetChildElement}", exception);
+                return operation;
+            }
 
             if (target is null)
             {
-                operation.AddError("Specified target child was not found");
+                operation.AddError($"Specified target child was not found. Parent: {parentElement}, child {targetChildElement}");
                 return operation;
             }
 
             if (string.IsNullOrEmpty(target.InnerText))
             {
-                operation.AddError($"Inner text of {targetChildElement} was null or empty");
+                operation.AddError($"Inner text of {targetChildElement} was null or empty. Parent: {parentElement}, child {targetChildElement}");
                 return operation;
             }
 
