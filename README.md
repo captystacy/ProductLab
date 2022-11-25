@@ -6,6 +6,6 @@
 * [EPPlus](https://www.epplussoftware.com/) // creating excel
 * [OperationResult](https://github.com/Calabonga/OperationResult) // to understand server
 ## Screenshots
-![cmd](https://github.com/captystacy/ProductLab/blob/master/whatnot/cmd.PNG)
+![cmd](https://github.com/captystacy/ProductLab/blob/main/whatnot/cmd.PNG)
 
-![excel](https://github.com/captystacy/ProductLab/blob/master/whatnot/excel.PNG)
+![excel](https://github.com/captystacy/ProductLab/blob/main/whatnot/excel.PNG)
